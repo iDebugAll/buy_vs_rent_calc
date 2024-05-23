@@ -278,9 +278,14 @@ class MortgageCalculator:
 
     def print_payment_plan(self, payment_plan, total_interest_paid, highlight_row):
         total_cost_of_ownership, initial_fees, ltv = self.calculate_total_cost_of_ownership(self.property_price, total_interest_paid, total_insurance_costs, total_maintenance_costs, total_early_repayment_fees)
+        down_payment = self.property_price - self.principal
+        total_initial_costs = initial_fees + down_payment
         
         print("\n------ Mortgage Insights ------\n")
+        print(f"Loan Amount: AED {self.principal:,.2f}")
+        print(f"Down Payment: AED {down_payment:,.2f}")
         print(f"Initial Fees (excluding down payment): AED {initial_fees:,.2f}")
+        print(f"Total Initial Costs (including down payment): AED {total_initial_costs:,.2f}")
         print(f"Loan to Value (LTV): {ltv:.2f}%")
         print(f"Total Cost of Ownership: AED {total_cost_of_ownership:,.2f}")
         print(f"Total interest paid: AED {total_interest_paid:,.2f}")
@@ -296,16 +301,16 @@ class MortgageCalculator:
             {'selector': 'thead th', 'props': [('font-size', '14pt'), ('border', '1px solid black'), ('font-weight', 'bold'), ('text-align', 'center'), ('vertical-align', 'middle')]},
             {'selector': 'tbody tr:nth-child(odd)', 'props': [('background-color', '#f2f2f2')]}
         ]).set_properties(**{'border': '1px solid black', 'color': 'black', 'background-color': 'white'}) \
-          .set_properties(subset=['Date'], **{'white-space': 'nowrap'}) \
-          .format("{:,.2f}", subset=pd.IndexSlice[:, df.columns.drop('Date')]) \
-          .set_table_styles({'Date': [{'selector': 'td', 'props': [('text-align', 'center')]}]}, overwrite=False)
+        .set_properties(subset=['Date'], **{'white-space': 'nowrap'}) \
+        .format("{:,.2f}", subset=pd.IndexSlice[:, df.columns.drop('Date')]) \
+        .set_table_styles({'Date': [{'selector': 'td', 'props': [('text-align', 'center')]}]}, overwrite=False)
         pd.set_option('display.max_columns', None)  # Show all columns
         pd.set_option('display.width', 150)  # Set the display width
         pd.set_option('display.float_format', '{:,.2f}'.format)  # Format float numbers
 
         styled_df = styled_df.set_properties(**{'border': '1px solid black'}).set_table_styles(
             [{'selector': 'thead th', 'props': [('font-weight', 'bold'), ('text-align', 'center'), ('border-bottom', '1px solid black')]},
-             {'selector': 'tbody tr:nth-child(odd)', 'props': [('background-color', '#f2f2f2')]}]
+            {'selector': 'tbody tr:nth-child(odd)', 'props': [('background-color', '#f2f2f2')]}]
         ).set_table_attributes('border="1" cellpadding="3" cellspacing="0" style="border-collapse: collapse"')
 
         print("\n------ Mortgage Payment Plan ------\n")

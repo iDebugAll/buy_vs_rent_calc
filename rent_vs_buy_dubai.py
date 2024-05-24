@@ -209,6 +209,10 @@ class MortgageCalculator:
             # Apply the total early repayment amount once
             remaining_principal -= total_early_repayment_amt
 
+            # Ensure the principal payment does not go negative
+            if remaining_principal == 0:
+                principal_payment = 0
+
             # Ensure the final payment does not go negative
             if remaining_principal - principal_payment < 0:
                 principal_payment = remaining_principal

@@ -253,7 +253,7 @@ class MortgageCalculator:
                 'Property Value': property_value,
                 'Investment Balance': investment_balance,
                 'Remaining Principal': remaining_principal,
-                'Debts': -remaining_principal
+                'Debts': remaining_principal
             })
 
             payment_plan.append({

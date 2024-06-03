@@ -291,6 +291,7 @@ class MortgageCalculator:
         print(f"Initial Fees (excluding down payment): AED {initial_fees:,.2f}")
         print(f"Total Initial Costs (including down payment): AED {total_initial_costs:,.2f}")
         print(f"Loan to Value (LTV): {ltv:.2f}%")
+        print(f"Debt to Income (DTI): {self.principal/(monthly_salary*12):,.2f}")
         print(f"Total Cost of Ownership: AED {total_cost_of_ownership:,.2f}")
         print(f"Total interest paid: AED {total_interest_paid:,.2f}")
         print(f"Total early repayment fees paid: AED {self.early_repayment_fees:,.2f}")
